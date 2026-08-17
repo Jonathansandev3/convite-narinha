@@ -1,3 +1,4 @@
+"use client";
 
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -422,3 +423,4 @@ export default function Home() {
     </main>
   );
 }
+3

@@ -1,0 +1,79 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == "narinha@admin.com";
+    }
+
+    function validRegistration() {
+      return request.resource.data.keys().hasOnly([
+          "purchaserName",
+          "partnerName",
+          "ticketType",
+          "amount",
+          "guestCount",
+          "paymentStatus",
+          "paymentDeclaredAt",
+          "createdAt"
+        ])
+        && request.resource.data.purchaserName is string
+        && request.resource.data.purchaserName.size() >= 2
+        && request.resource.data.purchaserName.size() <= 80
+        && request.resource.data.partnerName is string
+        && request.resource.data.partnerName.size() <= 80
+        && request.resource.data.ticketType is string
+        && request.resource.data.amount is number
+        && request.resource.data.guestCount is number
+        && request.resource.data.paymentStatus == "pending"
+        && request.resource.data.paymentDeclaredAt == request.time
+        && request.resource.data.createdAt == request.time
+        && (
+          (
+            request.resource.data.ticketType == "single"
+            && request.resource.data.amount == 50
+            && request.resource.data.guestCount == 1
+            && request.resource.data.partnerName == ""
+          )
+          ||
+          (
+            request.resource.data.ticketType == "couple"
+            && request.resource.data.amount == 70
+            && request.resource.data.guestCount == 2
+            && request.resource.data.partnerName.size() >= 2
+          )
+        );
+    }
+
+    match /registrations/{registrationId} {
+      allow create: if validRegistration();
+
+      allow read: if isAdmin()
+        || resource.data.paymentStatus == "confirmed";
+
+      allow update: if isAdmin()
+        && resource.data.paymentStatus == "pending"
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "paymentStatus",
+          "reviewedAt",
+          "confirmedAt"
+        ])
+        && request.resource.data.paymentStatus in ["confirmed", "rejected"]
+        && request.resource.data.reviewedAt == request.time
+        && (
+          (
+            request.resource.data.paymentStatus == "confirmed"
+            && request.resource.data.confirmedAt == request.time
+          )
+          ||
+          (
+            request.resource.data.paymentStatus == "rejected"
+            && request.resource.data.confirmedAt == null
+          )
+        );
+
+      allow delete: if false;
+    }
+  }
+}

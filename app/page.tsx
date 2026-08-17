@@ -1,4 +1,3 @@
-"use client";
 
 import Image from "next/image";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
@@ -255,6 +254,14 @@ export default function Home() {
         <div className="dress-banner">
           <span className="dress-icon" aria-hidden="true">★</span>
           <p><strong>Uniforme da resenha:</strong> venha com a camisa da Seleção ou usando as cores do Brasil.</p>
+        </div>
+
+        <div className="drink-banner" role="note" aria-label="Aviso importante sobre bebidas">
+          <span className="drink-banner-icon" aria-hidden="true">🍻</span>
+          <div>
+            <strong>Atenção, galera!</strong>
+            <p>Cada pessoa deve levar sua própria bebida.</p>
+          </div>
         </div>
       </section>
 

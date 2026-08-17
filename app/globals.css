@@ -508,6 +508,47 @@ body {
   transform: rotate(-1deg);
   font-size: 17px;
 }
+.drink-banner {
+  position: relative;
+  z-index: 3;
+  width: min(760px, 90%);
+  margin: 28px auto -46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 18px 26px;
+  color: var(--green-deep);
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  box-shadow: 9px 9px 0 var(--green);
+  clip-path: polygon(2% 3%, 99% 0, 97% 96%, 1% 100%, 0 17%);
+  transform: rotate(1deg);
+}
+.drink-banner-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  height: 48px;
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 25px;
+}
+.drink-banner strong {
+  display: block;
+  color: var(--blue);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.drink-banner p {
+  margin: 2px 0 0;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.25;
+}
 
 .experience {
   position: relative;
@@ -640,6 +681,10 @@ footer { background: #f4e8cf; border-top: 3px dashed var(--green); }
   .paper-note.note-one { top: 26%; left: -2%; }
   .paper-note.note-two { right: -2%; bottom: 15%; }
   .dress-banner { margin-top: -22px; font-size: 13px; }
+  .drink-banner { width: 92%; margin-top: 22px; margin-bottom: -36px; padding: 15px 18px; gap: 12px; text-align: left; box-shadow: 6px 6px 0 var(--green); }
+  .drink-banner-icon { flex-basis: 40px; height: 40px; font-size: 21px; }
+  .drink-banner strong { font-size: 16px; }
+  .drink-banner p { font-size: 15px; }
   .experience-card { box-shadow: 6px 6px 0 var(--blue); }
   .party-collage { min-height: 570px; margin-top: 70px; box-shadow: 7px 7px 0 var(--yellow); }
   .party-copy { width: 86%; padding-top: 55px; }
